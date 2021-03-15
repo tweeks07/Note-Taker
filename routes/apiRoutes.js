@@ -13,12 +13,7 @@ module.exports = (app) => {
   // API GET Requests
   
 
-  app.get('/api/notes', (req, res) => {
-    let noteData = fs.readFileSync(".db/db.json");
-    noteData = JSON.parse(noteData);
-    res.json(noteData)
-
-  });
+  app.get('/api/notes', (req, res) => res.json(noteData));
 
 
   // API POST Requests
@@ -33,17 +28,16 @@ module.exports = (app) => {
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
     // req.body is available since we're using the body parsing middleware
-    let noteData = fs.readFileSync(".db/db.json");
-    noteData = JSON.parse(noteData);
-    req.body.id = uuid();
+    
+    req.body['id'] = uuid();
     noteData.push(req.body);
-    fs.writeFileSync(".db/db.json", JSON.stringify(noteData));
+    fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
     res.end();
       
 });
 
 
-  //app.post('/api/clear', (req, res) => {
+  //app.delete('/api/clear', (req, res) => {
     // Empty out the arrays of data
     //tableData.length = 0;
     //waitListData.length = 0;
