@@ -17,17 +17,22 @@ module.exports = (app) => {
 
 
  
+  //API POST Requests
+
 
   app.post('/api/notes', (req, res) => {
     req.body['id'] = uuidv4();
     noteData.push(req.body);
     fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
-
       
 });
 
+  //API DELETE Requests
+
 app.delete('/api/notes/:id', (req, res) => {
-  let noteDelete = db.findIndex(i => i.id === req.params.id);
-  noteData.splice(getID, 1);
+  let indexID = db.findIndex(i => i.id === req.params.id);
+  noteData.splice(indexID, 1);
   fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
-})};
+})
+
+};
