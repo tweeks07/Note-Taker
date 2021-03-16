@@ -30,8 +30,7 @@ module.exports = (app) => {
   //API DELETE Requests
 
 app.delete('/api/notes/:id', (req, res) => {
-  let indexID = db.findIndex(i => i.id === req.params.id);
-  noteData.splice(indexID, 1);
+  
   fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
 })
 
